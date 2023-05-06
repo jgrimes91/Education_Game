@@ -1,0 +1,16 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settingsConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="au.edu.jcu.cp3406.education_game.SettingsFragment">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
