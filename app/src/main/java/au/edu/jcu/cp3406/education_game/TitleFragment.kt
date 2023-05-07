@@ -10,17 +10,23 @@ import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentTitleBinding
 
 class TitleFragment : Fragment() {
-
+    private lateinit var binding: FragmentTitleBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
+        binding = DataBindingUtil.inflate<FragmentTitleBinding>(
             inflater,
             R.layout.fragment_title,
             container,
             false
         )
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.playButton.setOnClickListener{}
     }
 }
