@@ -3,11 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/titleFragment2">
+    app:startDestination="@id/titleFragment">
 
     <fragment
-        android:id="@+id/titleFragment2"
+        android:id="@+id/titleFragment"
         android:name="au.edu.jcu.cp3406.education_game.TitleFragment"
         android:label="fragment_title"
-        tools:layout="@layout/fragment_title" />
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="au.edu.jcu.cp3406.education_game.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="au.edu.jcu.cp3406.education_game.ui.game.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game"/>
 </navigation>
