@@ -45,6 +45,16 @@
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/difficultyIc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/difficultyTextView"
+            app:layout_constraintEnd_toStartOf="@+id/difficultyTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/difficultyTextView"
+            app:srcCompat="@drawable/difficulty_ic" />
+
         <TextView
             android:id="@+id/difficultyTextView"
             android:layout_width="wrap_content"
