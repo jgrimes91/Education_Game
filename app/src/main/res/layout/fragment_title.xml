@@ -13,69 +13,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Play"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <Button
-            android:id="@+id/highScoreButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="High Score"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playButton" />
-
-        <Button
-            android:id="@+id/settingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rulesButton" />
-
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/titleImageView"
             android:layout_width="0dp"
             android:layout_height="192dp"
+            android:layout_marginTop="200dp"
             android:scaleType="fitCenter"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/chicken" />
 
-        <TextView
-            android:id="@+id/usernameTextView"
+        <GridLayout
+            android:id="@+id/titleGrid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:textStyle="bold"
-            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/titleImageView">
+
+
+            <Button
+                android:id="@+id/playButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginTop="10dp"
+                android:text="Play"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/highScoreButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleImageView" />
+
+            <Button
+                android:id="@+id/highScoreButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="High Score"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/playButton"
+                app:layout_constraintTop_toBottomOf="@+id/titleImageView" />
+
+        </GridLayout>
 
         <Button
             android:id="@+id/rulesButton"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="How to play"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/highScoreButton" />
+            app:layout_constraintEnd_toEndOf="@+id/titleGrid"
+            app:layout_constraintStart_toStartOf="@+id/titleGrid"
+            app:layout_constraintTop_toBottomOf="@+id/titleGrid" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

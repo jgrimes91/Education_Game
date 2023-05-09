@@ -1,23 +1,82 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="gameViewModel"
             type="au.edu.jcu.cp3406.education_game.ui.game.GameViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="au.edu.jcu.cp3406.education_game.ui.game.GameFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/currentAnimalTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+        <ImageView
+            android:id="@+id/currentAnimalImageView"
+            android:layout_width="0dp"
+            android:layout_height="192dp"
+            android:layout_marginTop="200dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cow" />
 
-    </FrameLayout>
+        <GridLayout
+            android:id="@+id/gameGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currentAnimalImageView">
+
+            <Button
+                android:id="@+id/guessOneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="fill"
+                android:layout_marginTop="10dp"
+                android:text="Guess 1"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/guessTwoButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Guess 2"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/guessThreeButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginTop="10dp"
+                android:text="Guess 3"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/guessFourButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Guess 4"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/playButton"
+                app:layout_constraintTop_toBottomOf="@+id/titleImageView" />
+
+
+        </GridLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

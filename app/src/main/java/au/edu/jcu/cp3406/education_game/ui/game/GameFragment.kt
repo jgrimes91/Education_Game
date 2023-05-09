@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentGameBinding
 
@@ -30,9 +31,5 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.gameViewModel = viewModel
-    }
-
-    private fun updateAnimalOnScreen(){
-        binding.currentAnimalTextView.text = viewModel.currentAnimal
     }
 }
