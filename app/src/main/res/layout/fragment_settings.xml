@@ -27,20 +27,20 @@
             android:id="@+id/usernameContainer"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="20dp"
             android:hint="Username"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/usernameIc"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/settingsImage">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/usernameInput"
-                android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1">
+                android:maxLines="1"
+                android:textSize="20sp">
 
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
@@ -81,8 +81,8 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy"
                 android:checked="true"
+                android:text="Easy"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -109,12 +109,23 @@
         <Button
             android:id="@+id/clearHighScore"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="20dp"
             android:text="Clear High Score"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/usernameContainer"
             app:layout_constraintStart_toStartOf="@+id/toggleButton"
             app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+
+
+        <ImageView
+            android:id="@+id/settingsImage"
+            android:layout_width="wrap_content"
+            android:layout_height="192dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pig" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

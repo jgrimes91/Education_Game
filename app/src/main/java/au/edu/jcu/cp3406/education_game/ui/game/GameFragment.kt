@@ -1,13 +1,12 @@
 package au.edu.jcu.cp3406.education_game.ui.game
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentGameBinding
 
