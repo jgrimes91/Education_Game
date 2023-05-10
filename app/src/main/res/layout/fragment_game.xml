@@ -7,6 +7,9 @@
         <variable
             name="gameViewModel"
             type="au.edu.jcu.cp3406.education_game.ui.game.GameViewModel" />
+        <variable
+            name="maxNoOfAnimals"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

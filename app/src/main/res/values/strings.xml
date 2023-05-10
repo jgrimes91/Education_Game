@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Education Game</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cow">Cow</string>
+    <string name="chicken">Chicken</string>
+    <string name="pig">Pig</string>
+    <string name="sheep">Sheep</string>
+    <string name="horse">Horse</string>
+    <string name="duck">Duck</string>
 </resources>
