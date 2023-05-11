@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cow" />
+                app:srcCompat="@{gameViewModel.randomAnimalImage}" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -67,7 +67,7 @@
                 android:layout_gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/chicken" />
+                app:srcCompat="@drawable/pig" />
         </androidx.cardview.widget.CardView>
 
         <TextView
