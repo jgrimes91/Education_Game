@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentTitleBinding
 
@@ -27,10 +28,7 @@ class TitleFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        binding.settingsButton.setOnClickListener { view: View ->
-//            view.findNavController().navigate(R.id.action_titleFragment_to_settingsFragment)
-//        }
-//        binding.playButton.setOnClickListener{ view: View ->
-//            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)}
+        binding.playButton.setOnClickListener{ view: View ->
+            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)}
     }
 }

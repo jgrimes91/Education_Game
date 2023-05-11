@@ -7,93 +7,89 @@
         <variable
             name="gameViewModel"
             type="au.edu.jcu.cp3406.education_game.ui.game.GameViewModel" />
-        <variable
-            name="maxNoOfAnimals"
-            type="int" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="au.edu.jcu.cp3406.education_game.ui.game.GameFragment">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/gameCardView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="40dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toTopOf="@id/guessTextView"
-            app:layout_constraintTop_toBottomOf="@+id/scoreTextView">
-
-            <ImageView
-                android:id="@+id/currentAnimalImageViewOne"
-                android:layout_width="154dp"
-                android:layout_height="192dp"
-                android:layout_gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@{gameViewModel.randomAnimalImage}" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/guessTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guess"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/gameCardView2"
-            app:layout_constraintTop_toBottomOf="@+id/gameCardView1" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/gameCardView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="40dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guessTextView">
-
-            <ImageView
-                android:id="@+id/currentAnimalImageViewTwo"
-                android:layout_width="154dp"
-                android:layout_height="192dp"
-                android:layout_gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/pig" />
-        </androidx.cardview.widget.CardView>
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/scoreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
             android:layout_marginTop="16dp"
-            android:text="SCORE: "
+            android:text="@string/score"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/animalCount"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/animalCount"
+            android:id="@+id/animalCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="ANIMALS: XXX"
+            android:layout_marginVertical="16dp"
+            android:text="Animal x of x"
             android:textSize="20sp"
             android:textStyle="bold"
-
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/currentAnimal"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/current_animal_to_guess"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
+            app:src="@{gameViewModel.drawableResId}" />
+
+        <TextView
+            android:id="@+id/instructionsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/guess_prompt"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currentAnimal" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/guessTextFieldContainer"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/enter_animal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/guessInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/guessButton"
+            android:layout_width="320dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/guess"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guessTextFieldContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

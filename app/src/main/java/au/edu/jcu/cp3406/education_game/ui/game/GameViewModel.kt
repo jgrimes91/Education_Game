@@ -12,39 +12,66 @@ class GameViewModel : ViewModel() {
     private val _currentAnimalCount = MutableLiveData(0)
     val currentAnimalCount: LiveData<Int> get() = _currentAnimalCount
 
+    private val _drawableResId = MutableLiveData<Int>()
+    val drawableResId: MutableLiveData<Int> get() = _drawableResId
 
-    private val animalsImages = arrayOf(R.drawable.cow, R.drawable.chicken, R.drawable.pig)
-    val randomAnimalImage: Int
-        get() {
-            return animalsImages.random()
-        }
-//    var currentAnimal
-//    lateinit var secondAnimal: String
+    private var animalList: MutableList<String> = mutableListOf()
+
+    private lateinit var currentAnimalModified: String
+
+    private lateinit var currentAnimal: String
 
     init {
-//        getNextAnimal()
+        getNextAnimal()
     }
 
-//    // This is the old way
-//    fun getNextAnimal(): String {
-//        currentAnimal = allAnimals.random()
-////        secondAnimal = allAnimals.random()
-////
-////        if (secondAnimal == currentAnimal) {
-////            secondAnimal = allAnimals.random()
-////        }
-//        return currentAnimal
-//    }
+    fun checkGuess(guess: String): Boolean {
+        if (guess.equals(currentAnimal, true)) {
+            increaseScore()
+            return true
+        }
+        return false
+    }
 
-//    private fun increaseScore() {
-//        _score.value = (score.value)?.plus(SCORE_INCREASE)
-//    }
+    private fun increaseScore() {
+        _score.value = (score.value)?.plus(SCORE_INCREASE)
+    }
 
+    private fun getNextAnimal() {
+        currentAnimal = allAnimals.random()
 
-//    fun nextAnimal(): Boolean {
-//        return if (currentAnimalCount.value!! < MAX_NO_OF_ANIMALS) {
-//            getNextAnimal()
-//            true
-//        } else false
-//    }
+        val replacementChar = '_'
+        val index = (currentAnimal.indices).random()
+        currentAnimalModified =
+            StringBuilder(currentAnimal).apply { setCharAt(index, replacementChar) }.toString()
+
+        if (animalList.contains(currentAnimal)) {
+            getNextAnimal()
+        } else {
+            _currentAnimalCount.value = (_currentAnimalCount.value)?.inc()
+            animalList.add(currentAnimal)
+            getImageResource()
+        }
+    }
+
+    private fun getImageResource() {
+        if (currentAnimal == "cow") {
+            drawableResId.value = R.drawable.cow
+        }
+        if (currentAnimal == "chicken") {
+            drawableResId.value = R.drawable.chicken
+        }
+        if (currentAnimal == "pig") {
+            drawableResId.value = R.drawable.pig
+        }
+    }
+
+    fun nextAnimal(): Boolean {
+        return if (currentAnimalCount.value!! < MAX_NO_OF_ANIMALS) {
+            getNextAnimal()
+            true
+        } else {
+            false
+        }
+    }
 }

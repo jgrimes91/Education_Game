@@ -7,4 +7,14 @@
     <string name="sheep">Sheep</string>
     <string name="horse">Horse</string>
     <string name="duck">Duck</string>
+    <string name="current_animal_to_guess">Current animal to guess</string>
+    <string name="guess_prompt">I am a ...</string>
+    <string name="enter_animal">Enter animal</string>
+    <string name="guess">Guess</string>
+    <string name="play">Play</string>
+    <string name="high_score">High Score</string>
+    <string name="how_to_play">How to play</string>
+    <string name="welcome_back_player">Welcome back player!</string>
+    <string name="title_screen_image">Title screen image</string>
+    <string name="score">Score:</string>
 </resources>

@@ -1,6 +1,5 @@
 package au.edu.jcu.cp3406.education_game.ui.game
 
-import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,18 +18,35 @@ class GameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
+
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onResume() {
+        super.onResume()
 
         binding.gameViewModel = viewModel
-        binding.maxNoOfAnimals = MAX_NO_OF_ANIMALS
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.drawableResId.observe(this){
+            drawableResId -> binding.currentAnimal.setImageResource(drawableResId)
+        }
+
+        binding.guessButton.setOnClickListener{guessAnimal()}
+    }
+
+    private fun guessAnimal() {
+        val guess = binding.guessInputEditText.text.toString()
+
+        if (viewModel.checkGuess(guess)){
+            // no errors
+        }
+        // if game over
+        // there was an error
     }
 }
