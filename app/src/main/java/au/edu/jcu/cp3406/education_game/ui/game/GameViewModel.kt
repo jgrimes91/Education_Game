@@ -1,5 +1,6 @@
 package au.edu.jcu.cp3406.education_game.ui.game
 
+import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,20 +18,31 @@ class GameViewModel : ViewModel() {
 
     private var animalList: MutableList<String> = mutableListOf()
 
-    private lateinit var currentAnimalModified: String
+    private val _currentAnimalModified = MutableLiveData<String>()
+    val currentAnimalModified: MutableLiveData<String> get() = _currentAnimalModified
 
     private lateinit var currentAnimal: String
 
+    private lateinit var animalSound: MediaPlayer
+
     init {
         getNextAnimal()
+    }
+
+    fun resetData(){
+        _score.value = 0
+        _currentAnimalCount.value = 0
+        animalList.clear()
     }
 
     fun checkGuess(guess: String): Boolean {
         if (guess.equals(currentAnimal, true)) {
             increaseScore()
             return true
+        } else {
+            _score.value = score.value
+            return false
         }
-        return false
     }
 
     private fun increaseScore() {
@@ -42,7 +54,7 @@ class GameViewModel : ViewModel() {
 
         val replacementChar = '_'
         val index = (currentAnimal.indices).random()
-        currentAnimalModified =
+        currentAnimalModified.value =
             StringBuilder(currentAnimal).apply { setCharAt(index, replacementChar) }.toString()
 
         if (animalList.contains(currentAnimal)) {
@@ -50,18 +62,29 @@ class GameViewModel : ViewModel() {
         } else {
             _currentAnimalCount.value = (_currentAnimalCount.value)?.inc()
             animalList.add(currentAnimal)
-            getImageResource()
+            getAnimalResource()
+//            playAnimalSound()
         }
     }
 
-    private fun getImageResource() {
-        if (currentAnimal == "cow") {
+//    private fun playAnimalSound() {
+//        if(!this::animalSound.isInitialized){
+//
+//        }
+//    }
+
+    /**
+     * Links animal string to correct resource files
+     */
+    private fun getAnimalResource() {
+        if (currentAnimal == allAnimals[0]) {
             drawableResId.value = R.drawable.cow
+
         }
-        if (currentAnimal == "chicken") {
+        if (currentAnimal == allAnimals[1]) {
             drawableResId.value = R.drawable.chicken
         }
-        if (currentAnimal == "pig") {
+        if (currentAnimal == allAnimals[2]) {
             drawableResId.value = R.drawable.pig
         }
     }

@@ -16,5 +16,6 @@
     <string name="how_to_play">How to play</string>
     <string name="welcome_back_player">Welcome back player!</string>
     <string name="title_screen_image">Title screen image</string>
-    <string name="score">Score:</string>
+    <string name="score">Score:%2d</string>
+    <string name="animalCountTextView">Animal %2d of %2d</string>
 </resources>

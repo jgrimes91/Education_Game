@@ -8,6 +8,9 @@
             name="gameViewModel"
             type="au.edu.jcu.cp3406.education_game.ui.game.GameViewModel" />
 
+        <variable
+            name="maxAnimalCount"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/score"
+            android:text="@{@string/score(gameViewModel.score)}"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
-            android:text="Animal x of x"
+            android:text="@{@string/animalCountTextView(gameViewModel.currentAnimalCount, maxAnimalCount)}"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/guess_prompt"
+            android:text="@{gameViewModel.currentAnimalModified}"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
