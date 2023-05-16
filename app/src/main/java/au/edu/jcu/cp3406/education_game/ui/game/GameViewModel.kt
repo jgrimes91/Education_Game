@@ -1,12 +1,16 @@
 package au.edu.jcu.cp3406.education_game.ui.game
 
+import android.app.Application
 import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import au.edu.jcu.cp3406.education_game.database.ScoreboardDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
 
-class GameViewModel : ViewModel() {
+class GameViewModel(
+    dataSource: ScoreboardDatabaseDao, application: Application) : ViewModel() {
+
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
@@ -15,6 +19,7 @@ class GameViewModel : ViewModel() {
 
     private val _drawableResId = MutableLiveData<Int>()
     val drawableResId: MutableLiveData<Int> get() = _drawableResId
+//    var drawableResId: Int = 0
 
     private var animalList: MutableList<String> = mutableListOf()
 
@@ -25,23 +30,24 @@ class GameViewModel : ViewModel() {
 
     private lateinit var animalSound: MediaPlayer
 
+    val database = dataSource
+
     init {
         getNextAnimal()
     }
 
-    fun resetData(){
+    fun resetData() {
         _score.value = 0
         _currentAnimalCount.value = 0
         animalList.clear()
+        nextAnimal()
     }
 
-    fun checkGuess(guess: String): Boolean {
-        if (guess.equals(currentAnimal, true)) {
+    fun checkGuess(guess: String) {
+        if (guess == currentAnimal) {
             increaseScore()
-            return true
         } else {
             _score.value = score.value
-            return false
         }
     }
 
@@ -62,24 +68,51 @@ class GameViewModel : ViewModel() {
         } else {
             _currentAnimalCount.value = (_currentAnimalCount.value)?.inc()
             animalList.add(currentAnimal)
-            getAnimalResource()
+
+//            drawableResId = getAnimalImage(currentAnimal)
+            getAnimalImage()
 //            playAnimalSound()
         }
     }
 
 //    private fun playAnimalSound() {
-//        if(!this::animalSound.isInitialized){
+//        val soundResId = getAnimalSoundResId(currentAnimal)
 //
+//        if (!this::animalSound.isInitialized) {
+//            animalSound = MediaPlayer.create(this, soundResId)
 //        }
+//        if (animalSound.isPlaying) {
+//            animalSound.pause()
+//            animalSound.seekTo(0)
+//        }
+//        animalSound.start()
 //    }
+
+
+    private fun getAnimalSoundResId(animal: String): Int {
+        val soundResId = when (animal) {
+            "cow" -> R.raw.cow
+            "chicken" -> R.raw.chicken
+            "pig" -> R.raw.pig
+            else -> R.raw.error
+        }
+        return soundResId
+    }
 
     /**
      * Links animal string to correct resource files
      */
-    private fun getAnimalResource() {
+//    private fun getAnimalImage(animal: String): Int {
+//    return when (animal) {
+//        "cow" -> R.drawable.cow
+//        "chicken" -> R.drawable.chicken
+//        else -> R.drawable.pig
+
+
+    private fun getAnimalImage() {
+
         if (currentAnimal == allAnimals[0]) {
             drawableResId.value = R.drawable.cow
-
         }
         if (currentAnimal == allAnimals[1]) {
             drawableResId.value = R.drawable.chicken
