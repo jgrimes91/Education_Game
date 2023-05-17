@@ -5,11 +5,13 @@ import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import au.edu.jcu.cp3406.education_game.database.ScoreboardDatabaseDao
+import au.edu.jcu.cp3406.education_game.database.Player
+import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
 
 class GameViewModel(
-    dataSource: ScoreboardDatabaseDao, application: Application) : ViewModel() {
+    dataSource: PlayerDatabaseDao, application: Application
+) : ViewModel() {
 
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
@@ -26,7 +28,9 @@ class GameViewModel(
     private val _currentAnimalModified = MutableLiveData<String>()
     val currentAnimalModified: MutableLiveData<String> get() = _currentAnimalModified
 
-    private lateinit var currentAnimal: String
+    lateinit var currentAnimal: String
+
+    private var player = MutableLiveData<Player?>()
 
     private lateinit var animalSound: MediaPlayer
 
@@ -35,6 +39,11 @@ class GameViewModel(
     init {
         getNextAnimal()
     }
+
+//    suspend fun getCurrentPlayerName(playerId: Long): String{
+//        val player = database.getPlayer(playerId)
+//        return player.name
+//    }
 
     fun resetData() {
         _score.value = 0
@@ -71,25 +80,12 @@ class GameViewModel(
 
 //            drawableResId = getAnimalImage(currentAnimal)
             getAnimalImage()
-//            playAnimalSound()
+//            getAnimalSoundResId(currentAnimal)
         }
     }
 
-//    private fun playAnimalSound() {
-//        val soundResId = getAnimalSoundResId(currentAnimal)
-//
-//        if (!this::animalSound.isInitialized) {
-//            animalSound = MediaPlayer.create(this, soundResId)
-//        }
-//        if (animalSound.isPlaying) {
-//            animalSound.pause()
-//            animalSound.seekTo(0)
-//        }
-//        animalSound.start()
-//    }
 
-
-    private fun getAnimalSoundResId(animal: String): Int {
+    fun getAnimalSoundResId(animal: String): Int {
         val soundResId = when (animal) {
             "cow" -> R.raw.cow
             "chicken" -> R.raw.chicken

@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import au.edu.jcu.cp3406.education_game.database.ScoreBoardDatabase
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentSettingsBinding
 
-
-class SettingsFragment() : Fragment() {
+class SettingsFragment : Fragment() {
     var difficulty: Int = 0
+
     private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
@@ -21,19 +20,11 @@ class SettingsFragment() : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
 
-        val application = requireNotNull(this.activity).application
-
-        // Create an instance of the ViewModel Factory.
-        val dataSource = ScoreBoardDatabase.getInstance(application).scoreboardDatabaseDao
-
-
-
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-
     }
 
     private fun changeDifficulty() {

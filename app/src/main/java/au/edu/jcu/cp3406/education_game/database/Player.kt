@@ -6,13 +6,16 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "high_score_table")
-data class Scoreboard(
+data class Player(
     @PrimaryKey(autoGenerate = true)
     var playerId: Long = 0L,
 
     @ColumnInfo(name = "player_name")
-    var playerName: String,
+    var name: String,
 
     @ColumnInfo(name = "score")
-    var score: Int = 0
+    var score: Int = 0,
+
+    @ColumnInfo(name = "Difficulty")
+    var difficulty: Int = 0
 )

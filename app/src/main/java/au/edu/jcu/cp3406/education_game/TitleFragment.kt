@@ -30,5 +30,8 @@ class TitleFragment : Fragment() {
         super.onResume()
         binding.playButton.setOnClickListener{ view: View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)}
+        binding.settingsButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_titleFragment_to_settingsFragment)
+        }
     }
 }

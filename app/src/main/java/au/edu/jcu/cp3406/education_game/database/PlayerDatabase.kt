@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Scoreboard::class], version = 1, exportSchema = false)
-abstract class ScoreBoardDatabase : RoomDatabase(){
+@Database(entities = [Player::class], version = 1, exportSchema = false)
+abstract class PlayerDatabase : RoomDatabase(){
     /**
      * Connects the database to the DAO
      */
-    abstract val scoreboardDatabaseDao: ScoreboardDatabaseDao
+    abstract val playerDatabaseDao: PlayerDatabaseDao
 
     /**
      * Companion object allows us to add functions on the Scoreboard class.
@@ -27,16 +27,16 @@ abstract class ScoreBoardDatabase : RoomDatabase(){
          * to shared data are visible to other threads.
          */
         @Volatile
-        private var INSTANCE: ScoreBoardDatabase? = null
+        private var INSTANCE: PlayerDatabase? = null
 
-        fun getInstance(context: Context): ScoreBoardDatabase {
+        fun getInstance(context: Context): PlayerDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        ScoreBoardDatabase::class.java,
+                        PlayerDatabase::class.java,
                         "score_history_database"
                     ).fallbackToDestructiveMigration().build()
                     INSTANCE = instance
