@@ -27,7 +27,6 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     private lateinit var application: Application
 
-//    private lateinit var animalSound: MediaPlayer
     private var animalSound: MediaPlayer? = null
 
     private lateinit var sensorManager: SensorManager
@@ -39,7 +38,6 @@ class GameFragment : Fragment() {
 
             // Checking x-value threshold
             val x = data[0]
-
             if (x > 30) {
                 playAnimalSound()
             }
@@ -99,18 +97,7 @@ class GameFragment : Fragment() {
         sensorManager.unregisterListener(sensorAdapter)
     }
 
-    /**
-     * Not sure if this part is in the right section or correct??
-     */
     private fun playAnimalSound() {
-//        if (!this::animalSound.isInitialized) {
-//            animalSound = MediaPlayer.create(application, viewModel.getAnimalSoundResId())
-//        }
-//        if (animalSound.isPlaying) {
-//            animalSound.pause()
-//            animalSound.seekTo(0)
-//        }
-//        animalSound.start()
 
         animalSound.apply {
             if(animalSound?.isPlaying == true){
@@ -154,10 +141,6 @@ class GameFragment : Fragment() {
             .setPositiveButton("Play again") { _, _ ->
                 viewModel.resetData()
             }.show()
-    }
-
-    private fun saveToDatabase() {
-        TODO("Not yet implemented")
     }
 
     private fun returnToTitle() {

@@ -12,11 +12,12 @@ interface PlayerDatabaseDao {
     @Update
     suspend fun updatePlayer(player: Player)
 
-    @Query("DELETE FROM high_score_table")
+    @Query("DELETE FROM player_table")
     suspend fun clearPlayers()
 
-    @Query("SELECT * FROM high_score_table ORDER BY score DESC")
+    @Query("SELECT * FROM player_table ORDER BY score DESC")
     fun getAllPlayers(): LiveData<Player>
+    suspend fun getPlayer(): Player
 
 //    @Query("SELECT * from high_score_table where playerId =: playerId")
 //    suspend fun getPlayer(playerId: Long): Player?

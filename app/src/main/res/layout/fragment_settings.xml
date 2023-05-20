@@ -117,10 +117,10 @@
             app:srcCompat="@drawable/pig" />
 
         <Button
-            android:id="@+id/clearScoreboard"
+            android:id="@+id/saveChanges"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="@string/clear_scoreboard"
+            android:text="@string/save_changes"
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

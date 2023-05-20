@@ -15,8 +15,8 @@ class TitleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<FragmentTitleBinding>(
+    ): View {
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_title,
             container,

@@ -19,4 +19,5 @@
     <string name="score">Score:%2d</string>
     <string name="animalCountTextView">Animal %2d of %2d</string>
     <string name="clear_scoreboard">Clear Scoreboard</string>
+    <string name="save_changes">Save changes</string>
 </resources>

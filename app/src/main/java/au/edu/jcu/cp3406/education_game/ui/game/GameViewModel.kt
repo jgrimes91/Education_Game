@@ -5,9 +5,11 @@ import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import au.edu.jcu.cp3406.education_game.database.Player
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class GameViewModel(
@@ -28,7 +30,7 @@ class GameViewModel(
     private val _currentAnimalModified = MutableLiveData<String>()
     val currentAnimalModified: MutableLiveData<String> get() = _currentAnimalModified
 
-    private lateinit var currentAnimal: String
+    lateinit var currentAnimal: String
 
     private var player = MutableLiveData<Player?>()
 
@@ -36,13 +38,31 @@ class GameViewModel(
 
     init {
         getNextAnimal()
+        initialisePlayer()
+    }
+
+    private fun initialisePlayer() {
+        viewModelScope.launch {
+            player.value = getPlayerFromDatabase()
+        }
+    }
+
+    private suspend fun getPlayerFromDatabase(): Player? {
+        var player = database.getPlayer()
+        return player
     }
 
 //    suspend fun getCurrentPlayerName(playerId: Long): String{
 //        val player = database.getPlayer(playerId)
 //        return player.name
 //    }
+    private suspend fun insertPlayer(player: Player){
+        database.insertPlayer(player)
+    }
 
+    private suspend fun updatePlayer(player: Player){
+        database.updatePlayer(player)
+    }
     fun resetData() {
         _score.value = 0
         _currentAnimalCount.value = 0
@@ -111,7 +131,12 @@ class GameViewModel(
             getNextAnimal()
             true
         } else {
+            savePlayerData()
             false
         }
+    }
+
+    private fun savePlayerData() {
+        TODO("Not yet implemented")
     }
 }
