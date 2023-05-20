@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import au.edu.jcu.cp3406.education_game.database.Player
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
+import kotlin.properties.Delegates
 
 class GameViewModel(
     dataSource: PlayerDatabaseDao, application: Application
@@ -21,18 +22,15 @@ class GameViewModel(
 
     private val _drawableResId = MutableLiveData<Int>()
     val drawableResId: MutableLiveData<Int> get() = _drawableResId
-//    var drawableResId: Int = 0
 
     private var animalList: MutableList<String> = mutableListOf()
 
     private val _currentAnimalModified = MutableLiveData<String>()
     val currentAnimalModified: MutableLiveData<String> get() = _currentAnimalModified
 
-    lateinit var currentAnimal: String
+    private lateinit var currentAnimal: String
 
     private var player = MutableLiveData<Player?>()
-
-    private lateinit var animalSound: MediaPlayer
 
     val database = dataSource
 
@@ -78,15 +76,14 @@ class GameViewModel(
             _currentAnimalCount.value = (_currentAnimalCount.value)?.inc()
             animalList.add(currentAnimal)
 
-//            drawableResId = getAnimalImage(currentAnimal)
             getAnimalImage()
-//            getAnimalSoundResId(currentAnimal)
         }
     }
 
 
-    fun getAnimalSoundResId(animal: String): Int {
-        val soundResId = when (animal) {
+    fun getAnimalSoundResId(): Int {
+
+        val soundResId = when (currentAnimal) {
             "cow" -> R.raw.cow
             "chicken" -> R.raw.chicken
             "pig" -> R.raw.pig
@@ -94,15 +91,6 @@ class GameViewModel(
         }
         return soundResId
     }
-
-    /**
-     * Links animal string to correct resource files
-     */
-//    private fun getAnimalImage(animal: String): Int {
-//    return when (animal) {
-//        "cow" -> R.drawable.cow
-//        "chicken" -> R.drawable.chicken
-//        else -> R.drawable.pig
 
 
     private fun getAnimalImage() {

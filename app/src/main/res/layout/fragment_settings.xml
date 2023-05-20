@@ -115,5 +115,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/pig" />
+
+        <Button
+            android:id="@+id/clearScoreboard"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/clear_scoreboard"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/difficultySelection" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

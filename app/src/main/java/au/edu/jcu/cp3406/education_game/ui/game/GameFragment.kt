@@ -27,7 +27,8 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     private lateinit var application: Application
 
-    private lateinit var animalSound: MediaPlayer
+//    private lateinit var animalSound: MediaPlayer
+    private var animalSound: MediaPlayer? = null
 
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
@@ -81,7 +82,10 @@ class GameFragment : Fragment() {
             binding.currentAnimal.setImageResource(drawableResId)
         }
 
-        binding.guessButton.setOnClickListener { guessAnimal() }
+
+        binding.guessButton.setOnClickListener {
+            guessAnimal()
+            }
 
         sensorManager.registerListener(
             sensorAdapter,
@@ -99,21 +103,29 @@ class GameFragment : Fragment() {
      * Not sure if this part is in the right section or correct??
      */
     private fun playAnimalSound() {
-        val soundResId = viewModel.getAnimalSoundResId(viewModel.currentAnimal)
+//        if (!this::animalSound.isInitialized) {
+//            animalSound = MediaPlayer.create(application, viewModel.getAnimalSoundResId())
+//        }
+//        if (animalSound.isPlaying) {
+//            animalSound.pause()
+//            animalSound.seekTo(0)
+//        }
+//        animalSound.start()
 
-        if (!this::animalSound.isInitialized) {
-            animalSound = MediaPlayer.create(application, soundResId)
+        animalSound.apply {
+            if(animalSound?.isPlaying == true){
+                animalSound?.stop()
+            }
+            animalSound?.reset()
+            animalSound?.release()
+
+            animalSound = MediaPlayer.create(application, viewModel.getAnimalSoundResId())
+            animalSound?.start()
         }
-        if (animalSound.isPlaying) {
-            animalSound.pause()
-            animalSound.seekTo(0)
-        }
-        animalSound.start()
     }
 
 
     private fun guessAnimal() {
-        animalSound.stop()
         val guess = binding.guessInputEditText.text.toString()
 
         viewModel.checkGuess(guess)
@@ -123,11 +135,10 @@ class GameFragment : Fragment() {
     }
 
     private fun showFinalScore() {
-        saveToDatabase()
+//        saveToDatabase()
 
         var titleMessage = ""
-
-        if (viewModel.score.value!! >= 20) {
+        if (viewModel.score.value!! <= 20) {
             titleMessage = "Nice try!"
         } else if (viewModel.score.value!! == 30) {
             titleMessage = "Well done!"

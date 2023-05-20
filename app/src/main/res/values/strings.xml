@@ -8,7 +8,7 @@
     <string name="horse">Horse</string>
     <string name="duck">Duck</string>
     <string name="current_animal_to_guess">Current animal to guess</string>
-    <string name="guess_prompt">I am a ...</string>
+    <string name="guess_prompt">I am a …</string>
     <string name="enter_animal">Enter animal</string>
     <string name="guess">Guess</string>
     <string name="play">Play</string>
@@ -18,4 +18,5 @@
     <string name="title_screen_image">Title screen image</string>
     <string name="score">Score:%2d</string>
     <string name="animalCountTextView">Animal %2d of %2d</string>
+    <string name="clear_scoreboard">Clear Scoreboard</string>
 </resources>

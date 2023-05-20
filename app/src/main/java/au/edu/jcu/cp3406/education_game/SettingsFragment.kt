@@ -25,6 +25,10 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        binding.difficultySelection.setOnCheckedChangeListener{ _, _ ->
+            changeDifficulty()
+        }
     }
 
     private fun changeDifficulty() {
