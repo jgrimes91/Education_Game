@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="player"
+            type="au.edu.jcu.cp3406.education_game.database.Player" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +22,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/usernameContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/usernameContainer"
-            app:srcCompat="@drawable/person_ic" />
+            app:srcCompat="@drawable/person_ic"
+            android:contentDescription="@string/username_icon" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -28,7 +31,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Username"
+            android:hint="@string/username"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/usernameIc"
@@ -40,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:maxLines="1"
+                android:inputType="text"
                 android:textSize="20sp">
 
             </com.google.android.material.textfield.TextInputEditText>

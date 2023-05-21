@@ -17,13 +17,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabase
+import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentGameBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GameFragment : Fragment() {
+    private lateinit var playerDatabaseDao: PlayerDatabaseDao
 
     private val viewModel: GameViewModel by viewModels()
+
     private lateinit var binding: FragmentGameBinding
     private lateinit var application: Application
 
@@ -31,6 +34,7 @@ class GameFragment : Fragment() {
 
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
+
 
     private val sensorAdapter = object : SensorAdapter() {
         override fun onSensorChanged(sensorEvent: SensorEvent?) {
@@ -54,11 +58,11 @@ class GameFragment : Fragment() {
 
         // Create an instance of the ViewModel Factory
         val dataSource = PlayerDatabase.getInstance(application).playerDatabaseDao
-        val viewModelFactory = GameViewModelFactory(dataSource, application)
+        val viewModelFactory = GameViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment
         val gameViewModel =
-            (ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java))
+            (ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java])
         binding.gameViewModel = gameViewModel
 
         // Initialise Sensor Manager
@@ -80,10 +84,9 @@ class GameFragment : Fragment() {
             binding.currentAnimal.setImageResource(drawableResId)
         }
 
-
         binding.guessButton.setOnClickListener {
             guessAnimal()
-            }
+        }
 
         sensorManager.registerListener(
             sensorAdapter,
@@ -98,9 +101,8 @@ class GameFragment : Fragment() {
     }
 
     private fun playAnimalSound() {
-
         animalSound.apply {
-            if(animalSound?.isPlaying == true){
+            if (animalSound?.isPlaying == true) {
                 animalSound?.stop()
             }
             animalSound?.reset()

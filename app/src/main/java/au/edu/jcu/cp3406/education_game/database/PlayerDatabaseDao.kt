@@ -1,7 +1,10 @@
 package au.edu.jcu.cp3406.education_game.database
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+
 
 @Dao
 interface PlayerDatabaseDao {
@@ -15,10 +18,14 @@ interface PlayerDatabaseDao {
     @Query("DELETE FROM player_table")
     suspend fun clearPlayers()
 
+    @Query("SELECT * FROM player_table WHERE playerId = :key")
+    suspend fun get(key: Long): Player
+
     @Query("SELECT * FROM player_table ORDER BY score DESC")
-    fun getAllPlayers(): LiveData<Player>
+    fun getAllPlayers(): List<Player>
+
+    @Query("SELECT * FROM player_table LIMIT 1")
     suspend fun getPlayer(): Player
 
-//    @Query("SELECT * from high_score_table where playerId =: playerId")
-//    suspend fun getPlayer(playerId: Long): Player?
+
 }

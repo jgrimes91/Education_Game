@@ -1,13 +1,18 @@
 package au.edu.jcu.cp3406.education_game
+
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
-import androidx.room.Room
 import au.edu.jcu.cp3406.education_game.database.Player
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabase
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
@@ -20,21 +25,17 @@ class SettingsFragment : Fragment() {
     private var difficulty: Int = 0
 
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var gameViewModel: GameViewModel
 
-    private lateinit var database: PlayerDatabase
+    private lateinit var sharedViewModel: GameViewModel
+
     private lateinit var playerDatabaseDao: PlayerDatabaseDao
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
-
-        database =
-            Room.databaseBuilder(requireContext(), PlayerDatabase::class.java, "player_table")
-                .createFromAsset("player_table").build()
-
 
         return binding.root
     }
@@ -50,16 +51,35 @@ class SettingsFragment : Fragment() {
             saveSettings()
             view.findNavController().navigate(R.id.action_settingsFragment_to_titleFragment)
         }
+
+        binding.usernameInput.setOnKeyListener { view, keyCode, _ ->
+            handleKeyEvent(view, keyCode)
+        }
+
+
+    }
+
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            // Hide keyboard
+            val inputMethodManager =
+                view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
+        }
+        return false
+
     }
 
     private fun saveSettings() {
-        gameViewModel.viewModelScope.launch {
-            val playerName = binding.usernameContainer.toString()
+        sharedViewModel.viewModelScope.launch {
+            val playerName = binding.usernameInput.toString()
             val playerDifficulty = changeDifficulty()
 
             val player = Player(name = playerName, difficulty = playerDifficulty)
             playerDatabaseDao.insertPlayer(player)
         }
+
     }
 
     private fun changeDifficulty(): Int {

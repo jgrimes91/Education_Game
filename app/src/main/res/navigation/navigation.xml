@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_scoreBoardFragment"
+            app:destination="@id/scoreBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -35,4 +38,8 @@
             android:id="@+id/action_gameFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/scoreBoardFragment"
+        android:name="au.edu.jcu.cp3406.education_game.ScoreBoardFragment"
+        android:label="ScoreBoardFragment" />
 </navigation>
