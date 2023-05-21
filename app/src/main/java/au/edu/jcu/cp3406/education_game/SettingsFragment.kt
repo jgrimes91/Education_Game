@@ -9,25 +9,21 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import au.edu.jcu.cp3406.education_game.database.Player
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabase
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
-import au.edu.jcu.cp3406.education_game.ui.game.GameViewModel
 import au.edu.jcu.cp3406.educationgame.R
 import au.edu.jcu.cp3406.educationgame.databinding.FragmentSettingsBinding
 import kotlinx.coroutines.launch
 
-class SettingsFragment : Fragment() {
+class SettingsFragment() : Fragment() {
     private var difficulty: Int = 0
 
     private lateinit var binding: FragmentSettingsBinding
 
-    private lateinit var sharedViewModel: GameViewModel
-
+    private lateinit var database: PlayerDatabase
     private lateinit var playerDatabaseDao: PlayerDatabaseDao
 
 
@@ -36,6 +32,9 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+
+        database = PlayerDatabase.getInstance(requireContext())
+        playerDatabaseDao = database.playerDatabaseDao
 
         return binding.root
     }
@@ -55,8 +54,6 @@ class SettingsFragment : Fragment() {
         binding.usernameInput.setOnKeyListener { view, keyCode, _ ->
             handleKeyEvent(view, keyCode)
         }
-
-
     }
 
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
@@ -72,13 +69,21 @@ class SettingsFragment : Fragment() {
     }
 
     private fun saveSettings() {
-        sharedViewModel.viewModelScope.launch {
-            val playerName = binding.usernameInput.toString()
+        lifecycleScope.launch {
+            val playerName = binding.usernameInput.text.toString()
             val playerDifficulty = changeDifficulty()
 
-            val player = Player(name = playerName, difficulty = playerDifficulty)
+            val player = Player(name = playerName, difficulty = playerDifficulty, score = 0)
             playerDatabaseDao.insertPlayer(player)
         }
+
+//        viewModel.viewModelScope.launch {
+//            val playerName = binding.usernameInput.toString()
+//            val playerDifficulty = changeDifficulty()
+//
+//            val player = Player(name = playerName, difficulty = playerDifficulty)
+//            playerDatabaseDao.insertPlayer(player)
+//        }
 
     }
 

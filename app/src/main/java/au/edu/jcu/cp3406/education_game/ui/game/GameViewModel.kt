@@ -3,11 +3,8 @@ package au.edu.jcu.cp3406.education_game.ui.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import au.edu.jcu.cp3406.education_game.database.Player
 import au.edu.jcu.cp3406.education_game.database.PlayerDatabaseDao
 import au.edu.jcu.cp3406.educationgame.R
-import kotlinx.coroutines.launch
 
 class GameViewModel(
     dataSource: PlayerDatabaseDao
@@ -29,44 +26,19 @@ class GameViewModel(
 
     private lateinit var currentAnimal: String
 
-    private var player = MutableLiveData<Player?>()
 
-    private val _difficulty = MutableLiveData<Int>(0)
-    val difficulty: LiveData<Int> get() = _difficulty
+//    private val _difficulty = MutableLiveData<Int>(0)
+//    val difficulty: LiveData<Int> get() = _difficulty
 
     val database = dataSource
 
-    private val playerId: Long = 0L
-
     init {
         getNextAnimal()
-//        initialisePlayer()
-//        getDifficulty()
     }
 
-//    private fun getDifficulty() {
-//        TODO("Not yet implemented")
-//    }
-
-    private fun initialisePlayer() {
-        viewModelScope.launch {
-            player.value = getPlayerFromDatabase()
-            insertPlayer(player.value!!)
-        }
-    }
-
-    private suspend fun getPlayerFromDatabase(): Player {
-        return database.getPlayer()
-    }
-
-    private suspend fun insertPlayer(player: Player){
-        database.insertPlayer(player)
-    }
-
-    private suspend fun updatePlayer(player: Player){
-        database.updatePlayer(player)
-    }
-
+    /**
+     * Resets data for player if they want to play again.
+     */
     fun resetData() {
         _score.value = 0
         _currentAnimalCount.value = 0
@@ -74,6 +46,10 @@ class GameViewModel(
         nextAnimal()
     }
 
+    /**
+     * Checks the users guess.
+     * If correct, increment the score. If not, score remains the same.
+     */
     fun checkGuess(guess: String) {
         if (guess == currentAnimal) {
             increaseScore()
@@ -82,17 +58,24 @@ class GameViewModel(
         }
     }
 
+    /**
+     * Increasing the score.
+     */
     private fun increaseScore() {
         _score.value = (score.value)?.plus(SCORE_INCREASE)
     }
 
+    /**
+     * Gets random animal from list, added to new animal list so that same animal isn't repeated in
+     * next round.
+     */
     private fun getNextAnimal() {
         currentAnimal = allAnimals.random()
 
         val replacementChar = '_'
         val index = (currentAnimal.indices).random()
         currentAnimalModified.value =
-            StringBuilder(currentAnimal).apply { setCharAt(index, replacementChar) }.toString()
+            StringBuilder(currentAnimal).apply { setCharAt(index, replacementChar) }.toString()     // Replaces letters with character '_' in a random position
 
         if (animalList.contains(currentAnimal)) {
             getNextAnimal()
@@ -104,7 +87,9 @@ class GameViewModel(
         }
     }
 
-
+    /**
+     * Gets the sound resource id for the current animal
+     */
     fun getAnimalSoundResId(): Int {
 
         val soundResId = when (currentAnimal) {
@@ -117,6 +102,9 @@ class GameViewModel(
     }
 
 
+    /**
+     * Gets the animal drawable image id for the current animal
+     */
     private fun getAnimalImage() {
 
         if (currentAnimal == allAnimals[0]) {
@@ -130,20 +118,16 @@ class GameViewModel(
         }
     }
 
+    /**
+     * Checks the count against the number of animals for the game.
+     */
     fun nextAnimal(): Boolean {
         return if (currentAnimalCount.value!! < MAX_NO_OF_ANIMALS) {
             getNextAnimal()
             true
         } else {
-//            savePlayer()
             false
 
-        }
-    }
-
-    private fun savePlayer() {
-        viewModelScope.launch{
-            updatePlayer(player.value!!)
         }
     }
 }

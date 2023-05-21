@@ -1,5 +1,6 @@
 package au.edu.jcu.cp3406.education_game.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -22,7 +23,7 @@ interface PlayerDatabaseDao {
     suspend fun get(key: Long): Player
 
     @Query("SELECT * FROM player_table ORDER BY score DESC")
-    fun getAllPlayers(): List<Player>
+    fun getAllPlayers(): LiveData<List<Player>>
 
     @Query("SELECT * FROM player_table LIMIT 1")
     suspend fun getPlayer(): Player

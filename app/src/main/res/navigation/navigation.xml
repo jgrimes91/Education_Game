@@ -40,6 +40,6 @@
     </fragment>
     <fragment
         android:id="@+id/scoreBoardFragment"
-        android:name="au.edu.jcu.cp3406.education_game.ScoreBoardFragment"
+        android:name="au.edu.jcu.cp3406.education_game.ui.game.ScoreBoardFragment"
         android:label="ScoreBoardFragment" />
 </navigation>

@@ -4,16 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Database(entities = [Player::class], version = 1, exportSchema = false)
 abstract class PlayerDatabase : RoomDatabase(){
-    /**
-     * Connects the database to the DAO
-     */
+
     abstract val playerDatabaseDao: PlayerDatabaseDao
 
     /**

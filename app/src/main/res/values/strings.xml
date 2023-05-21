@@ -30,4 +30,10 @@
     <string name="username">Username</string>
     <string name="username_icon">Username Icon</string>
     <string name="settings">Settings</string>
+    <string name="difficulty_icon">Difficulty icon</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="settings_image">Settings Image</string>
+    <string name="difficultyTextView">Difficulty</string>
 </resources>

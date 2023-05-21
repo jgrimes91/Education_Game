@@ -5,70 +5,48 @@
     <data>
 
         <variable
-            name="player"
-            type="au.edu.jcu.cp3406.education_game.database.Player" />
+            name="gameViewModel"
+            type="au.edu.jcu.cp3406.education_game.ui.game.GameViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scoreBoardConstraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/player_image"
-            android:layout_width="64dp"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            android:contentDescription="@string/player_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/player_difficulty"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/player_name"
-            tools:srcCompat="@drawable/player_ic" />
+        android:layout_height="match_parent"
+        tools:context="au.edu.jcu.cp3406.education_game.ui.game.ScoreBoardFragment">
 
         <TextView
-            android:id="@+id/player_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{@string/name(player.name)"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/player_image"
-            app:layout_constraintTop_toBottomOf="@+id/scoreBoardTextView" />
-
-        <TextView
-            android:id="@+id/player_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="@{@string/score_2d(player.score)}"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/player_name" />
-
-        <TextView
-            android:id="@+id/player_difficulty"
+            android:id="@+id/scoreBoardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@{@string/difficulty(player.difficulty)}"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/player_name"
-            app:layout_constraintTop_toBottomOf="@+id/player_name" />
-
-        <TextView
-            android:id="@+id/scoreBoardTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/score_board"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/playerList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scoreBoardTitle"
+            tools:listitem="@layout/list_item_player" />
+
+        <Button
+            android:id="@+id/clearScoreBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/clear_scoreboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

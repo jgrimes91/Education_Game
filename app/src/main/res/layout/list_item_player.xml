@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="player"
+            type="au.edu.jcu.cp3406.education_game.database.Player" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scoreBoardConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/playerImage"
+            android:layout_width="64dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/player_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/playerDifficulty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/playerName"
+            tools:srcCompat="@drawable/player_ic" />
+
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="20sp"
+            app:playerNameFormatted="@{player}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playerImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/name" />
+
+        <TextView
+            android:id="@+id/playerScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
+            app:playerScoreFormatted="@{player}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/playerName"
+            tools:text="@string/score_2d" />
+
+        <TextView
+            android:id="@+id/playerDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/difficulty"
+            android:textSize="20sp"
+            app:difficultyFormatted="@{player}"
+            app:layout_constraintStart_toStartOf="@+id/playerName"
+            app:layout_constraintTop_toBottomOf="@+id/playerName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

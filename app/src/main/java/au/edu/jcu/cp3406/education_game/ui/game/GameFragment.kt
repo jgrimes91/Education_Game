@@ -23,7 +23,6 @@ import au.edu.jcu.cp3406.educationgame.databinding.FragmentGameBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GameFragment : Fragment() {
-    private lateinit var playerDatabaseDao: PlayerDatabaseDao
 
     private val viewModel: GameViewModel by viewModels()
 
@@ -35,7 +34,11 @@ class GameFragment : Fragment() {
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
 
+    private lateinit var database: PlayerDatabase
+    private lateinit var playerDatabaseDao: PlayerDatabaseDao
 
+
+    // Initialise sensor adaptor
     private val sensorAdapter = object : SensorAdapter() {
         override fun onSensorChanged(sensorEvent: SensorEvent?) {
             val data = sensorEvent?.values ?: return
@@ -69,6 +72,8 @@ class GameFragment : Fragment() {
         sensorManager = requireContext().getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(TYPE_ACCELEROMETER)
 
+        viewModel.resetData()
+
         return binding.root
     }
 
@@ -93,6 +98,10 @@ class GameFragment : Fragment() {
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL
         )
+
+        database = PlayerDatabase.getInstance(requireContext())
+        playerDatabaseDao = database.playerDatabaseDao
+
     }
 
     override fun onPause() {
@@ -100,6 +109,15 @@ class GameFragment : Fragment() {
         sensorManager.unregisterListener(sensorAdapter)
     }
 
+    override fun onDestroy() {
+        animalSound?.release()
+        animalSound?.stop()
+        super.onDestroy()
+    }
+
+    /**
+     * Gets the current animal from GameViewModel and plays the noise.
+     */
     private fun playAnimalSound() {
         animalSound.apply {
             if (animalSound?.isPlaying == true) {
@@ -113,19 +131,23 @@ class GameFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Checks the user input against the current animal.
+     */
     private fun guessAnimal() {
         val guess = binding.guessInputEditText.text.toString()
 
         viewModel.checkGuess(guess)
         if (!viewModel.nextAnimal()) {
-            showFinalScore()
+            endOfGameDialogue()
         }
     }
 
-    private fun showFinalScore() {
-//        saveToDatabase()
 
+    /**
+     * Displays dialogue box on completion of game. Title is customised depending on user performance.
+     */
+    private fun endOfGameDialogue() {
         var titleMessage = ""
         if (viewModel.score.value!! <= 20) {
             titleMessage = "Nice try!"
@@ -137,12 +159,19 @@ class GameFragment : Fragment() {
             .setTitle(titleMessage)
             .setMessage("You scored ${viewModel.score.value} points")
             .setCancelable(false)
-            .setNegativeButton("Back to home") { _, _ ->
-                returnToTitle()
+            .setNegativeButton("Share to social media?") { _, _ ->
+                shareStats()
             }
-            .setPositiveButton("Play again") { _, _ ->
-                viewModel.resetData()
+            .setPositiveButton("Back to home") { _, _ ->
+                returnToTitle()
             }.show()
+    }
+
+    /**
+     * Share stats to social media
+     */
+    private fun shareStats() {
+        returnToTitle() // Did not implement yet, returns to title so app doesn't crash. Permissions set up in manifest file.
     }
 
     private fun returnToTitle() {
